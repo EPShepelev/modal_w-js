@@ -24,14 +24,22 @@ function _createModal(options) {
 }
 
 $.modal = function(options) {
-  $modal = _createModal(options)
+  const ANIMATION_SPEED = 300
+  const $modal = _createModal(options)
+  let closing = false
 
   return {
     open() {
-      $modal.classList.add('open')
+      !closing && $modal.classList.add('open') //если не closing то добавляем класс, метод срабатывает
     },
     close() {
+      closing = true
       $modal.classList.remove('open')
+      $modal.classList.add('hiding')
+      setTimeout(() => {
+        $modal.classList.remove('hiding')
+        closing = false
+      }, ANIMATION_SPEED)
     },
     destroy() {}
   }

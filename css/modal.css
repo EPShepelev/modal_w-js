@@ -6,9 +6,31 @@
   z-index: 1000;
 }
 
+.ourmodal.hiding .modal-overlay,
+.ourmodal.hiding .modal-window {
+  opacity: 1;
+  z-index: 1000;
+}
+
 .modal-window, .modal-overlay {
   opacity: 0;
   z-index: -1;
+}
+
+.ourmodal.open .modal-window {
+  transform: translateY(100px);
+}
+
+.ourmodal.open .modal-overlay {
+  background: rgba(0, 0, 0, .4);
+}
+
+.ourmodal.hiding .modal-window {
+  transform: translateY(-200px);
+}
+
+.ourmodal.hiding .modal-overlay {
+  background: rgba(0, 0, 0, 0);
 }
 
 .modal-overlay {
@@ -17,7 +39,8 @@
   right: 0;
   left: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, .4);
+  background: rgba(0, 0, 0, 0);
+  transition: background .3s ease-in;
 }
 
 .modal-window {
@@ -25,6 +48,8 @@
   width: 600px;
   background-color: seagreen;
   border-radius: 10px;
+  transform: translateY(-200px);
+  transition: transform .3s ease-in;
 }
 
 .modal-header {
