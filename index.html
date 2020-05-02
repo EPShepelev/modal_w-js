@@ -3,9 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modal</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/modal.css">
+  <title>JS Modal</title>
 </head>
 <body>
-  
+  <div class="container">
+    <h1>Модальное окно на чистом JS</h1>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit in magnam dignissimos, harum perferendis assumenda architecto cum necessitatibus soluta maiores cupiditate vitae nemo blanditiis quaerat sequi quis repudiandae commodi perspiciatis unde! At quam tempora quidem possimus, aspernatur autem a minus alias. Dolor facere est fugit, nostrum modi cumque illo quam.</p>
+  </div>
+
+  <div class="ourmodal">
+    <div class="modal-overlay">
+      <div class="modal-window">
+        <div class="modal-header">
+          <span class="modal-title">Awesome Title</span>
+          <span class="modal-close">&times;</span>
+        </div>
+        <div class="modal-body">
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, libero?</p>
+          <p>Lorem ipsum dolor sit amet consectetur.</p>
+        </div>
+        <div class="modal-footer">
+          <button>Accept</button>
+          <button>Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="base.js"></script>
+  <script src="plugins/modal.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>
