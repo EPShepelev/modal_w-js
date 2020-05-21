@@ -1,4 +1,4 @@
-const cars = [
+let cars = [
   {id: 1, title: 'Dodge', price: 25, img: 'https://avatars.mds.yandex.net/get-pdb/1615223/1e089d46-25b9-48b6-a522-c7d5b9716b34/s1200?webp=false'},
   {id: 2, title: 'Aston Martin', price: 110, img: 'https://avatars.mds.yandex.net/get-pdb/2308976/f8904053-2465-4541-9d9e-28f68702dbae/s1200?webp=false'},
   {id: 3, title: 'Jaguar', price: 80, img: 'http://www.fonstola.ru/pic/201111/2560x1600/fonstola.ru-57180.jpg'}
@@ -41,29 +41,6 @@ const priceModal = $.modal({
   ]
 })
 
-const confirmModal = $.modal({
-  //передача базовых опций для модального окна
-  title: 'Are you sure?',
-  closable: true,
-  width: '400px',
-  footerButtons: [
-    {
-      text: 'Cancel',
-      type: 'secondary',
-      handler() {
-        confirmModal.close()
-      }
-    },
-    {
-      text: 'Delete',
-      type: 'danger',
-      handler() {
-        confirmModal.close()
-      }
-    }
-  ]
-})
-
 document.addEventListener('click', event => {
   event.preventDefault()
   const btnType = event.target.dataset.btn
@@ -76,9 +53,14 @@ document.addEventListener('click', event => {
     `)
     priceModal.open()
   } else if(btnType === 'remove') {
-    confirmModal.setContent(`
-    <p>You deleting car ${car.title}</p>
-    `)
-    confirmModal.open()
+    $.confirm({
+      title: 'Are you sure?',
+      content: `<p>You deleting car ${car.title}</p>`
+    }).then(() => {
+      cars = cars.filter(c => c.id !== id)
+      render()
+    }).catch(() => {
+      console.log('Cancel')
+    })
   }
 })
