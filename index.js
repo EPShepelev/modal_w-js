@@ -10,8 +10,8 @@ const toHTML = car => `
       <img style="height: 300px;" src="${car.img}" class="card-img-top" alt="${car.title}">
       <div class="card-body">
         <h5 class="card-title">${car.title}</h5>
-        <a href="#" class="btn btn-primary">See price</a>
-        <a href="#" class="btn btn-danger">Delete</a>
+        <a href="#" class="btn btn-primary" data-btn="price" data-id="${car.id}">See price</a>
+        <a href="#" class="btn btn-danger" data-btn="remove" data-id="${car.id}">Delete</a>
       </div>
     </div>
    </div>`
@@ -25,31 +25,60 @@ function render() {
 
 render()
 
-const myModal = $.modal({
+const priceModal = $.modal({
   //передача базовых опций для модального окна
-  title: 'Modal Window',
+  title: 'Price',
   closable: true,
-  content: `
-  <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Impedit in magnam dignissimos, harum</p>
-  <p>Lorem ipsum, dolor sit amn magnam dignissimos, harum</p>
-  `,
   width: '400px',
   footerButtons: [
     {
-      text: 'OK',
+      text: 'Close',
       type: 'primary',
       handler() {
-        console.log('Primary btn clicked')
-        myModal.close()
-      }
-    },
-    {
-      text: 'Cancel',
-      type: 'danger',
-      handler() {
-        console.log('Danger btn clicked')
-        myModal.close()
+        priceModal.close()
       }
     }
   ]
+})
+
+const confirmModal = $.modal({
+  //передача базовых опций для модального окна
+  title: 'Are you sure?',
+  closable: true,
+  width: '400px',
+  footerButtons: [
+    {
+      text: 'Cancel',
+      type: 'secondary',
+      handler() {
+        confirmModal.close()
+      }
+    },
+    {
+      text: 'Delete',
+      type: 'danger',
+      handler() {
+        confirmModal.close()
+      }
+    }
+  ]
+})
+
+document.addEventListener('click', event => {
+  event.preventDefault()
+  const btnType = event.target.dataset.btn
+  const id = +event.target.dataset.id  
+  const car = cars.find(c => c.id === id)
+
+  if(btnType === 'price') {
+    priceModal.setContent(`
+    <p>Car ${car.title} costs ${car.price}k$</p>
+    `)
+    priceModal.open()
+  } else if(btnType === 'remove') {
+    confirmModal.setContent(`
+    <p>You deleting car ${car.title}</p>
+    `)
+    confirmModal.open()
+  }
 })
